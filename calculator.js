@@ -46,14 +46,24 @@ Calculator.prototype.printLine = function(index){
 	return this.itemList[index].quantity + ' ' + this.itemList[index].itemName + ': ' + price / 100;
 };
 
+Calculator.prototype.printTotalTax = function(){
+	var total = 0;
+	this.itemList.forEach(function(item){
+		total += item.salesTax;
+	});
+	total /= 100;
+	return "Sales Tax: " + total.toFixed(2);
+};
+
 // The printTotal function takes the price from each item in itemList and adds them together.
 // It then converts the money back to a decimal and prints it in a string of "Total: amount"
 Calculator.prototype.printTotal = function(){
 	var total = 0;
 	this.itemList.forEach(function(item){
-		total += item.price;
+		total += item.price + item.salesTax;
 	});
-	return "Total: " + total/100;
+	total /= 100;
+	return "Total: " + total.toFixed(2);
 };
 
 // The calculateSalesTax function checks if the item is on the list of items exempt from sales tax. 
@@ -96,6 +106,5 @@ Calculator.prototype.calculateImportTax = function(){
 			}
 	});
 };
-
 
 module.exports = new Calculator();

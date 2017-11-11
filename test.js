@@ -63,7 +63,23 @@ describe('Sales Tax Calculator', ()=>{
 				Calculator.calculateSalesTax();
 				expect(Calculator.itemList).to.deep.include({'itemName': 'imported box of chocolates', 'quantity': 1, 'price': 1125, 'salesTax': 60});
 				expect(Calculator.printLine(0)).to.equal('1 imported box of chocolates: 11.85');
+			});
 
+
+
+			it('should print the total of the sales tax', ()=>{
+				Calculator.inputItem('1 imported box of chocolates at 11.25');
+				Calculator.inputItem('1 music CD at 14.99');
+				Calculator.inputItem('1 book at 12.49');
+				Calculator.calculateImportTax();
+				Calculator.calculateSalesTax();
+
+				expect(Calculator.itemList).to.deep.include({'itemName': 'imported box of chocolates', 'quantity': 1, 'price': 1125, 'salesTax': 60});
+				expect(Calculator.printLine(0)).to.equal('1 imported box of chocolates: 11.85');
+				expect(Calculator.printLine(1)).to.equal('1 music CD: 16.49');
+				expect(Calculator.printLine(2)).to.equal('1 book: 12.49');
+				expect(Calculator.printTotalTax()).to.equal('Sales Tax: 2.10');
+				expect(Calculator.printTotal()).to.equal('Total: 40.83');
 			});
 
 		});
