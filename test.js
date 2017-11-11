@@ -14,6 +14,12 @@ describe('Sales Tax Calculator', ()=>{
 				expect(Calculator.parseInput('1 book at 12.49')).to.deep.equal({'itemName': 'book', 'quantity': 1, 'price': 1249});
 			});
 
+			it('Function inputItem() should add item to itemList', ()=>{
+				Calculator.clear();
+				Calculator.inputItem('1 book at 12.49');
+				expect(Calculator.itemList).to.deep.include({'itemName': 'book', 'quantity': 1, 'price': 1249});
+			});
+
 		});
 	});
 
