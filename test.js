@@ -39,7 +39,7 @@ describe('Sales Tax Calculator', ()=>{
 		});
 
 		describe('Tests for calculating sales tax', ()=>{
-			it('should add sales tax and hold it as a separate variable', ()=>{
+			it('should calculate 10% sales tax and hold it as a separate variable', ()=>{
 				Calculator.inputItem('1 music CD at 14.99');
 				Calculator.calculateSalesTax();
 				expect(Calculator.itemList).to.deep.include({'itemName': 'music CD', 'quantity': 1, 'price': 1499, 'salesTax': 150});
@@ -57,6 +57,15 @@ describe('Sales Tax Calculator', ()=>{
 				expect(Calculator.isImported('box of chocolates')).to.equal(false);
 			});
 			
+			it('should calculate the 5% import sales tax if an item is imported', ()=>{
+				Calculator.inputItem('1 imported box of chocolates at 11.25');
+				Calculator.calculateImportTax();
+				Calculator.calculateSalesTax();
+				expect(Calculator.itemList).to.deep.include({'itemName': 'imported box of chocolates', 'quantity': 1, 'price': 1125, 'salesTax': 60});
+				expect(Calculator.printLine(0)).to.equal('1 imported box of chocolates: 11.85');
+
+			});
+
 		});
 	});
 
