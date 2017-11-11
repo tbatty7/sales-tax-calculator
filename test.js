@@ -39,12 +39,19 @@ describe('Sales Tax Calculator', ()=>{
 		});
 
 		describe('Tests for calculating sales tax', ()=>{
-			it('Function calculateSalesTax() should add sales tax and hold it as a separate variable', ()=>{
+			it('should add sales tax and hold it as a separate variable', ()=>{
 				Calculator.inputItem('1 music CD at 14.99');
 				Calculator.calculateSalesTax();
 				expect(Calculator.itemList).to.deep.include({'itemName': 'music CD', 'quantity': 1, 'price': 1499, 'salesTax': 150});
+			});
+
+			it('should add sales tax to each item price when printing out', ()=>{
+				Calculator.inputItem('1 music CD at 14.99');
+				Calculator.calculateSalesTax();
+				expect(Calculator.printLine(0)).to.equal('1 music CD: 16.49');
+
 			})
-		})
+		});
 	});
 
 });
