@@ -39,18 +39,20 @@ Calculator.prototype.inputItem = function(str){
 	this.itemList.push(this.parseInput(str));
 };
 
-// The checkout function should take the itemList array and format it back into
-// a string and print it out.
+// The checkout function should take the itemList array and add the sales tax
+// and multiply that by the quantity and format it back into a string and print it out.
 Calculator.prototype.printLine = function(index){
-	var price = this.itemList[index].price + this.itemList[index].salesTax;
+	var price = (this.itemList[index].price + this.itemList[index].salesTax) * this.itemList[index].quantity;
 	price /= 100;
 	return this.itemList[index].quantity + ' ' + this.itemList[index].itemName + ': ' + price.toFixed(2);
 };
 
+// The printTotalTax function iterates through the itemList and totals up the salesTax 
+// for each item and returns a formatted string with the Sales Tax total.
 Calculator.prototype.printTotalTax = function(){
 	var total = 0;
 	this.itemList.forEach(function(item){
-		total += item.salesTax;
+		total += item.salesTax * item.quantity;
 	});
 	total /= 100;
 	return "Sales Tax: " + total.toFixed(2);
@@ -61,7 +63,7 @@ Calculator.prototype.printTotalTax = function(){
 Calculator.prototype.printTotal = function(){
 	var total = 0;
 	this.itemList.forEach(function(item){
-		total += item.price + item.salesTax;
+		total += (item.price * item.quantity) + (item.salesTax * item.quantity);
 	});
 	total /= 100;
 	return "Total: " + total.toFixed(2);

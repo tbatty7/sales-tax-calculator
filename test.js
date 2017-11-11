@@ -125,7 +125,16 @@ describe('Sales Tax Calculator', ()=>{
 				expect(Calculator.printLine(3)).to.equal('1 imported box of chocolates: 11.85');
 				expect(Calculator.printTotalTax()).to.equal('Sales Tax: 6.70');
 				expect(Calculator.printTotal()).to.equal('Total: 74.68');
+			});
 
+			it('should account for quantities of more than 1', ()=>{
+				Calculator.inputItem('2 imported bottle of perfume at 27.99');
+				Calculator.calculateImportTax();
+				Calculator.calculateSalesTax();
+				
+				expect(Calculator.printLine(0)).to.equal('2 imported bottle of perfume: 64.38');
+				expect(Calculator.printTotalTax()).to.equal('Sales Tax: 8.40');
+				expect(Calculator.printTotal()).to.equal('Total: 64.38');
 			});
 		});
 	});
