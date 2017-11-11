@@ -56,6 +56,9 @@ Calculator.prototype.printTotal = function(){
 	return "Total: " + total/100;
 };
 
+// The calculateSalesTax function checks if the item is on the list of items exempt from sales tax. 
+// If the item is not exempt, it takes the price of each item in itemList and divides it by
+// 10, thus calculating a sales tax of 10%.
 Calculator.prototype.calculateSalesTax = function(){
 	var exemptList = this.exempt;
 	this.itemList.forEach(function(item){
@@ -67,5 +70,19 @@ Calculator.prototype.calculateSalesTax = function(){
 	});
 };
 	
+// The isImported function receives an input of the item name and returns true if it has the word
+// "imported" in it and false if it does not.
+Calculator.prototype.isImported = function(str){
+	var nameArray = str.split(' ');
+	var result = false;
+	nameArray.forEach(function(item){
+		if (item === 'imported'){
+			result = true;
+		}
+	});
+	return result;
+};
+
+
 
 module.exports = new Calculator();

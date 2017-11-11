@@ -49,8 +49,14 @@ describe('Sales Tax Calculator', ()=>{
 				Calculator.inputItem('1 music CD at 14.99');
 				Calculator.calculateSalesTax();
 				expect(Calculator.printLine(0)).to.equal('1 music CD: 16.49');
+			});
 
-			})
+			it('should check if an item is imported and if so, return true', ()=>{
+				expect(Calculator.isImported('imported bottle of perfume')).to.equal(true);
+				expect(Calculator.isImported('box of imported chocolates')).to.equal(true);
+				expect(Calculator.isImported('box of chocolates')).to.equal(false);
+			});
+			
 		});
 	});
 
