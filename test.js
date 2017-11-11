@@ -23,12 +23,20 @@ describe('Sales Tax Calculator', ()=>{
 		});
 
 		describe('Tests for output', ()=>{
-			it('Function checkout() should return at least 1 item formatted with price and quantity', ()=>{
+			it('Function printLine() should return at least 1 item formatted with price and quantity', ()=>{
 				Calculator.clear();
 				Calculator.inputItem('1 book at 12.49');
 				expect(Calculator.printLine(0)).to.equal('1 book: 12.49');
-			})
-		})
+			});
+			
+			it('Function printTotal() should return the total of the cost of the items', ()=>{
+				Calculator.clear();
+				Calculator.inputItem('1 book at 12.49');
+				Calculator.inputItem('1 chocolate bar at 0.85');
+				expect(Calculator.printTotal()).to.equal('Total: 13.34');
+			});
+
+		});
 	});
 
 });

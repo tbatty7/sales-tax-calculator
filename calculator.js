@@ -33,8 +33,16 @@ Calculator.prototype.inputItem = function(str){
 
 // The checkout function should take the itemList array and format it back into
 // a string and print it out.
-Calculator.prototype.printLine = function(){
-	return this.itemList[0].quantity + ' ' + this.itemList[0].itemName + ': ' + this.itemList[0].price / 100;
+Calculator.prototype.printLine = function(index){
+	return this.itemList[index].quantity + ' ' + this.itemList[index].itemName + ': ' + this.itemList[index].price / 100;
+}
+
+Calculator.prototype.printTotal = function(){
+	var total = 0;
+	this.itemList.forEach(function(item){
+		total += item.price;
+	});
+	return "Total: " + total/100;
 }
 
 module.exports = new Calculator();
