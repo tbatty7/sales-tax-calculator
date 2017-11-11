@@ -43,7 +43,8 @@ Calculator.prototype.inputItem = function(str){
 // a string and print it out.
 Calculator.prototype.printLine = function(index){
 	var price = this.itemList[index].price + this.itemList[index].salesTax;
-	return this.itemList[index].quantity + ' ' + this.itemList[index].itemName + ': ' + price / 100;
+	price /= 100;
+	return this.itemList[index].quantity + ' ' + this.itemList[index].itemName + ': ' + price.toFixed(2);
 };
 
 Calculator.prototype.printTotalTax = function(){

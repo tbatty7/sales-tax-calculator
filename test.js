@@ -83,6 +83,51 @@ describe('Sales Tax Calculator', ()=>{
 			});
 
 		});
+
+		describe('Final Tests', ()=>{
+			it('should takes inputs of 1 book, 1 music CD, and 1 chocolate bar and output the calculated price for each and the sales tax and the total price', ()=>{
+				Calculator.inputItem('1 book at 12.49');
+				Calculator.inputItem('1 music CD at 14.99');
+				Calculator.inputItem('1 chocolate bar at 0.85');
+				Calculator.calculateImportTax();
+				Calculator.calculateSalesTax();
+				
+				expect(Calculator.printLine(0)).to.equal('1 book: 12.49');
+				expect(Calculator.printLine(1)).to.equal('1 music CD: 16.49');
+				expect(Calculator.printLine(2)).to.equal('1 chocolate bar: 0.85');
+				expect(Calculator.printTotalTax()).to.equal('Sales Tax: 1.50');
+				expect(Calculator.printTotal()).to.equal('Total: 29.83');
+			});
+
+			it('should takes inputs of 1 imported box of chocolates, and 1 imported bottle of perfume and output the calculated price for each and the sales tax and the total price', ()=>{
+				Calculator.inputItem('1 imported box of chocolates at 10.00');
+				Calculator.inputItem('1 imported bottle of perfume at 47.50');
+				Calculator.calculateImportTax();
+				Calculator.calculateSalesTax();
+				
+				expect(Calculator.printLine(0)).to.equal('1 imported box of chocolates: 10.50');
+				expect(Calculator.printLine(1)).to.equal('1 imported bottle of perfume: 54.65');
+				expect(Calculator.printTotalTax()).to.equal('Sales Tax: 7.65');
+				expect(Calculator.printTotal()).to.equal('Total: 65.15');
+			});
+
+			it('should takes inputs of 1 imported bottle of perfume, 1 bottle of perfume, 1 packet of headache pills, and 1 box of importted chocolates and output the calculated price for each and the sales tax and the total price', ()=>{
+				Calculator.inputItem('1 imported bottle of perfume at 27.99');
+				Calculator.inputItem('1 bottle of perfume at 18.99');
+				Calculator.inputItem('1 packet of headache pills at 9.75');
+				Calculator.inputItem('1 imported box of chocolates at 11.25');
+				Calculator.calculateImportTax();
+				Calculator.calculateSalesTax();
+				
+				expect(Calculator.printLine(0)).to.equal('1 imported bottle of perfume: 32.19');
+				expect(Calculator.printLine(1)).to.equal('1 bottle of perfume: 20.89');
+				expect(Calculator.printLine(2)).to.equal('1 packet of headache pills: 9.75');
+				expect(Calculator.printLine(3)).to.equal('1 imported box of chocolates: 11.85');
+				expect(Calculator.printTotalTax()).to.equal('Sales Tax: 6.70');
+				expect(Calculator.printTotal()).to.equal('Total: 74.68');
+
+			});
+		});
 	});
 
 });
