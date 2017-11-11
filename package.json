@@ -1,0 +1,26 @@
+{
+  "name": "sales-tax-calculator",
+  "version": "1.0.0",
+  "description": "A calculator for sales tax giving totals",
+  "main": "calculator.js",
+  "scripts": {
+    "test": "mocha || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tbatty7/sales-tax-calculator.git"
+  },
+  "keywords": [
+    "calculator"
+  ],
+  "author": "Tim Batty",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tbatty7/sales-tax-calculator/issues"
+  },
+  "homepage": "https://github.com/tbatty7/sales-tax-calculator#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
+  }
+}
