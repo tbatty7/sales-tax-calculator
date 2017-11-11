@@ -9,6 +9,11 @@ describe('Sales Tax Calculator', ()=>{
 				expect(Calculator.itemList).to.be.an('array');
 			});
 
+			it('Function parseInput() should turn input string into an object', ()=>{
+				Calculator.clear();
+				expect(Calculator.parseInput('1 book at 12.49')).to.deep.equal({'itemName': 'book', 'quantity': 1, 'price': 1249});
+			});
+
 		});
 	});
 
