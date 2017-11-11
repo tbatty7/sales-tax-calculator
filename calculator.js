@@ -96,7 +96,7 @@ Calculator.prototype.isImported = function(str){
 	return result;
 };
 
-// The calculateImportTax funciton iterates through the itemList and calculates the 5% import sales tax
+// The calculateImportTax function iterates through the itemList and calculates the 5% import sales tax
 // and adds it to the sales tax property.
 Calculator.prototype.calculateImportTax = function(){
 	var isImported = this.isImported;
@@ -108,6 +108,15 @@ Calculator.prototype.calculateImportTax = function(){
 			item.salesTax += Math.ceil(literalTax/5)*5;
 			}
 	});
+};
+
+Calculator.prototype.printReceipt = function(){
+	var printLine = this.printLine;
+	for (var i = 0; i < this.itemList.length; i++){
+		console.log(printLine(i));
+	}
+	console.log(this.printTotalTax());
+	console.log(this.printTotal());
 };
 
 module.exports = new Calculator();
