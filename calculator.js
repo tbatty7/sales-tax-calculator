@@ -42,7 +42,7 @@ Calculator.prototype.inputItem = function(str){
 // The checkout function should take the itemList array and add the sales tax
 // and multiply that by the quantity and format it back into a string and print it out.
 Calculator.prototype.printLine = function(index){
-	var price = (this.itemList[index].price + this.itemList[index].salesTax) * this.itemList[index].quantity;
+	var price = (this.itemList[index].price * this.itemList[index].quantity) + this.itemList[index].salesTax;
 	price /= 100;
 	return this.itemList[index].quantity + ' ' + this.itemList[index].itemName + ': ' + price.toFixed(2);
 };
@@ -52,7 +52,7 @@ Calculator.prototype.printLine = function(index){
 Calculator.prototype.printTotalTax = function(){
 	var total = 0;
 	this.itemList.forEach(function(item){
-		total += item.salesTax * item.quantity;
+		total += item.salesTax;
 	});
 	total /= 100;
 	return "Sales Tax: " + total.toFixed(2);
@@ -63,7 +63,7 @@ Calculator.prototype.printTotalTax = function(){
 Calculator.prototype.printTotal = function(){
 	var total = 0;
 	this.itemList.forEach(function(item){
-		total += (item.price * item.quantity) + (item.salesTax * item.quantity);
+		total += (item.price * item.quantity) + item.salesTax;
 	});
 	total /= 100;
 	return "Total: " + total.toFixed(2);
@@ -78,7 +78,7 @@ Calculator.prototype.calculateSalesTax = function(){
 		if (exemptList[item.itemName]){
 			return;
 		} else {
-			item.salesTax += Math.ceil((item.price / 10) / 5)*5;
+			item.salesTax += Math.ceil((item.price * item.quantity / 10) / 5)*5;
 			}
 	});
 };
@@ -104,7 +104,7 @@ Calculator.prototype.calculateImportTax = function(){
 		if (!isImported(item.itemName)){
 			return;
 		} else {
-			var literalTax = (5/100)*item.price;
+			var literalTax = (5/100)*(item.price*item.quantity);
 			item.salesTax += Math.ceil(literalTax/5)*5;
 			}
 	});
