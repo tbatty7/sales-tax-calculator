@@ -1,12 +1,8 @@
+// The Tax exempt items are located in a seperate file.
+var Exempt = require('./exempt');
+
 var Calculator = function(){
 	this.itemList = [];
-	this.exempt = {
-		'book': true,
-		'chocolate bar': true,
-		'imported box of chocolates': true,
-		'box of imported chocolates': true,
-		'packet of headache pills': true,
-	};
 };
 
 // The clear function clears the itemList.
@@ -36,6 +32,8 @@ Calculator.prototype.parseInput = function(str){
 	};
 };
 
+// isInvalidInput: Tests the price and quantity to verify they are integers.
+// If they are valid, it returns false, if invalid, it returns true.
 Calculator.prototype.isInvalidInput = function(quantity, price){
 	if (quantity+1>0 && price+1>0){
 		return false;
@@ -45,7 +43,8 @@ Calculator.prototype.isInvalidInput = function(quantity, price){
 };
 
 // The inputItem function takes the input of a string, converts it to an object
-// and pushes it into the itemList array.
+// and pushes it into the itemList array.  It also tests for valid input first.
+// If input is invalid, it returns message.
 Calculator.prototype.inputItem = function(str){
 	if (this.parseInput(str) === 'Invalid Input'){
 		return 'Invalid Input: Must have format of quantity, item, and then price without dollar sign.  Example: 1 book at 4.33.';
@@ -87,7 +86,7 @@ Calculator.prototype.printTotal = function(){
 // If the item is not exempt, it takes the price of each item in itemList and divides it by
 // 10, thus calculating a sales tax of 10%, it then rounds up by 5 cents.
 Calculator.prototype.calculateSalesTax = function(){
-	var exemptList = this.exempt;
+	var exemptList = Exempt.list;
 	this.itemList.forEach(function(item){
 		if (exemptList[item.itemName]){
 			return;
@@ -124,6 +123,8 @@ Calculator.prototype.calculateImportTax = function(){
 	});
 };
 
+// printReceipt: console logs the output.  It first loops through the itemList and prints each line out
+// using printLine, then prints the total tax and then the net total.
 Calculator.prototype.printReceipt = function(){
 	var printLine = this.printLine;
 	for (var i = 0; i < this.itemList.length; i++){
