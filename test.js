@@ -136,6 +136,11 @@ describe('Sales Tax Calculator', ()=>{
 				expect(Calculator.printTotalTax()).to.equal('Sales Tax: 8.40');
 				expect(Calculator.printTotal()).to.equal('Total: 64.38');
 			});
+
+			it('should validate data first, and return rejection message if invalid', ()=>{
+				expect(Calculator.parseInput('two imported bottle of perfume at 27.99')).to.equal('Invalid Input');
+				expect(Calculator.inputItem('1 imported bottle of perfume at $27.99')).to.equal('Invalid Input: Must have format of quantity, item, and then price without dollar sign.  Example: 1 book at 4.33.');
+			});
 		});
 	});
 });

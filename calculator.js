@@ -22,20 +22,34 @@ Calculator.prototype.clear = function(){
 Calculator.prototype.parseInput = function(str){
 	var splitInput = str.split(' ');
 	var price = splitInput.pop()*100;
-	var quantity = parseInt(splitInput.shift());
+	var quantity = splitInput.shift();
 	splitInput.splice(splitInput.indexOf('at'), 1);
 	var itemName = splitInput.join(' ');
+	if (this.isInvalidInput(quantity, price)){
+		return 'Invalid Input';
+	}
 	return {
 		itemName: itemName,
-		quantity: quantity,
+		quantity: parseInt(quantity),
 		price: price,
 		salesTax: 0,
 	};
 };
 
+Calculator.prototype.isInvalidInput = function(quantity, price){
+	if (quantity+1>0 && price+1>0){
+		return false;
+	} else {
+		return true;
+	}
+};
+
 // The inputItem function takes the input of a string, converts it to an object
 // and pushes it into the itemList array.
 Calculator.prototype.inputItem = function(str){
+	if (this.parseInput(str) === 'Invalid Input'){
+		return 'Invalid Input: Must have format of quantity, item, and then price without dollar sign.  Example: 1 book at 4.33.';
+	}
 	this.itemList.push(this.parseInput(str));
 };
 
@@ -118,5 +132,6 @@ Calculator.prototype.printReceipt = function(){
 	console.log(this.printTotalTax());
 	console.log(this.printTotal());
 };
+
 
 module.exports = new Calculator();
