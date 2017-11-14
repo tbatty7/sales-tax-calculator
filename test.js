@@ -140,6 +140,8 @@ describe('Sales Tax Calculator', ()=>{
 			it('should validate data first, and return rejection message if invalid', ()=>{
 				expect(Calculator.parseInput('two imported bottle of perfume at 27.99')).to.equal('Invalid Input');
 				expect(Calculator.inputItem('1 imported bottle of perfume at $27.99')).to.equal('Invalid Input: Must have format of quantity, item, and then price without dollar sign.  Example: 1 book at 4.33.');
+				expect(Calculator.inputItem('0 imported bottle of perfume at 27.99')).to.equal('Invalid Input: Must have format of quantity, item, and then price without dollar sign.  Example: 1 book at 4.33.');
+				expect(Calculator.inputItem('1 bucket of rocks at 27.99')).to.equal('Invalid Input: Must have format of quantity, item, and then price without dollar sign.  Example: 1 book at 4.33.');
 			});
 		});
 	});

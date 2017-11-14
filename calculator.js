@@ -1,5 +1,5 @@
 // The Tax exempt items are located in a seperate file.
-var Exempt = require('./exempt');
+var Products = require('./products');
 
 var Calculator = function(){
 	this.itemList = [];
@@ -21,7 +21,7 @@ Calculator.prototype.parseInput = function(str){
 	var quantity = splitInput.shift();
 	splitInput.splice(splitInput.indexOf('at'), 1);
 	var itemName = splitInput.join(' ');
-	if (this.isInvalidInput(quantity, price)){
+	if (this.isInvalidInput(quantity, itemName, price)){
 		return 'Invalid Input';
 	}
 	return {
@@ -34,8 +34,8 @@ Calculator.prototype.parseInput = function(str){
 
 // isInvalidInput: Tests the price and quantity to verify they are integers.
 // If they are valid, it returns false, if invalid, it returns true.
-Calculator.prototype.isInvalidInput = function(quantity, price){
-	if (quantity+1>0 && price+1>0){
+Calculator.prototype.isInvalidInput = function(quantity, item, price){
+	if (quantity+1>1 && price>0 && Products.list[item]){
 		return false;
 	} else {
 		return true;
@@ -86,9 +86,8 @@ Calculator.prototype.printTotal = function(){
 // If the item is not exempt, it takes the price of each item in itemList and divides it by
 // 10, thus calculating a sales tax of 10%, it then rounds up by 5 cents.
 Calculator.prototype.calculateSalesTax = function(){
-	var exemptList = Exempt.list;
 	this.itemList.forEach(function(item){
-		if (exemptList[item.itemName]){
+		if (Products.list[item.itemName].exempt){
 			return;
 		} else {
 			item.salesTax += Math.ceil((item.price * item.quantity / 10) / 5)*5;
